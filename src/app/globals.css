@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+:root{
+    --bg-900: rgb(238 238 238);
+    --bg-100:  rgba(238, 238, 238, 0.5);
+    --bg-alt:  rgb(182, 181, 181);
+}
+
+
+body{
+    background-color: var(--bg-100);
+}
+
+
+.container{
+    margin-inline: auto;
+}

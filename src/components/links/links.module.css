@@ -1,0 +1,32 @@
+.link{
+    position: relative;
+}
+
+
+.link::before,.link::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    aspect-ratio: 1;
+    width: 20px;
+
+}
+
+
+.link::before{
+    border-radius: 0 0 0 200rem;
+}
+
+.link::after{
+    border-radius:  200rem 0 0 0;
+}
+
+.link:hover::before{
+    bottom: 100%;
+    box-shadow: -10px 10px 0 5px var(--bg-alt);
+}
+
+.link:hover::after{
+    top: 100%;
+    box-shadow:-10px -10px 0 5px var(--bg-alt);
+}
