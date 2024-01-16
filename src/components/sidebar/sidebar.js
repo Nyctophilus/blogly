@@ -27,30 +27,15 @@ const Sidebar = () => {
 
   return (
     <>
-      <AnimatePresence>
-        <motion.button
-          whileTap={{ scale: 0.8 }}
-          onClick={openMenu}
-          className="md:hidden overflow-hidden"
-        >
-          <motion.figure
-            animate={controls2}
-            initial={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.2 }}
-            className="relative w-[50px] h-[50px]"
-          >
-            <Image src={Menu} fill priority alt="menu icon" />
-          </motion.figure>
-          <motion.figure
-            animate={controls}
-            initial={{ x: -50, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="relative w-[50px] h-[50px]"
-          >
-            <Image src={MenuOpen} fill priority alt="menu icon" />
-          </motion.figure>
-        </motion.button>
+      <motion.button
+        whileTap={{ scale: 0.8 }}
+        onClick={openMenu}
+        className="md:hidden overflow-hidden"
+      >
+        <Image src={Menu} width={50} height={50} priority alt="menu icon" />
+      </motion.button>
 
+      <AnimatePresence>
         {open && (
           <motion.aside
             key="aside"

@@ -4,9 +4,9 @@ import styles from "./links.module.css";
 const links = ["home", "about", "contact us", "blogs"];
 
 const LinkItems = ({ row }) => {
-  const horStyles = "flex gap-2 items-center max-md:hidden";
+  const horStyles = "md:flex gap-2 items-center hidden";
   const VerStyles =
-    "flex flex-col gap-6 items-center justify-center gap-4 py-6 md:hidden rounded-2xl bg-[var(--bg-900)] fixed top-[80px] right-[0] h-[calc(100svh-120px)] w-[20svh] z-10";
+    "flex flex-col gap-6 items-center justify-center gap-4 py-6 md:hidden rounded-2xl bg-[var(--bg-900)] fixed top-[80px] right-[0] h-[calc(100svh-120px)] w-[20svh] overflow-hidden z-10";
 
   return (
     <div className={row ? horStyles : VerStyles}>

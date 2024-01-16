@@ -16,7 +16,7 @@ const Form = () => {
 
       <Button
         disabled={!success}
-        className="mt-4 w-[40%] hover:bg-[var(--bg-900)] hover:text-black hover:shadow-inner"
+        className="xl:w-[40%] hover:bg-[var(--bg-900)] hover:text-black hover:shadow-inner"
       >
         send message
       </Button>
