@@ -22,12 +22,12 @@ const BlogCard = ({
   createdAt,
   user: [user],
 }) => (
-  <Card className="max-w-[280px] lg:max-w-[24rem] overflow-hidden">
+  <Card className="w-[280px] xl:w-[24rem] overflow-hidden h-[550px]">
     <CardHeader
       floated={false}
       shadow={false}
       color="transparent"
-      className="m-0 rounded-none w-[100%] h-[260px]"
+      className="m-0 rounded-none w-full h-[50%]"
     >
       <Image
         src={img || noAvatarImg}
@@ -37,11 +37,16 @@ const BlogCard = ({
         priority
       />
     </CardHeader>
-    <CardBody>
+    <CardBody className="h-[40%]">
       <Typography variant="h4" color="blue-gray">
         {title}
       </Typography>
-      <Typography variant="lead" color="gray" className="mt-3 font-normal">
+      <Typography
+        variant="lead"
+        color="gray"
+        className="mt-3 font-normal line-clamp-3"
+        style={{ display: "-webkit-box" }}
+      >
         {body}
       </Typography>
     </CardBody>
