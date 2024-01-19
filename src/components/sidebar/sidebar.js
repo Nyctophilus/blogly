@@ -5,7 +5,6 @@ import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import Overlay from "../overlay/overlay";
 import Image from "next/image";
 import Menu from "/public/menuBar.svg";
-import MenuOpen from "/public/menu-open.svg";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);

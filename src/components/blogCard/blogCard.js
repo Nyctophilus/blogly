@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardHeader,
@@ -9,7 +7,7 @@ import {
   Avatar,
   Tooltip,
   Button,
-} from "@material-tailwind/react";
+} from "@/lib/export-mat-tailwind";
 
 import Image from "next/image";
 import Link from "next/link";

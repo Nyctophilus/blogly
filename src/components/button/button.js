@@ -1,5 +1,4 @@
-"use client";
-import { Button } from "@material-tailwind/react";
+import { Button } from "@/lib/export-mat-tailwind";
 
 const MyButton = ({ children, classes }) => (
   <Button
