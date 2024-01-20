@@ -9,6 +9,9 @@ import {
   Avatar,
   Tooltip,
   Button,
+  Input,
+  Checkbox,
+  Textarea,
 } from "@material-tailwind/react";
 
 export {
@@ -20,4 +23,7 @@ export {
   Avatar,
   Tooltip,
   Button,
+  Input,
+  Checkbox,
+  Textarea,
 };

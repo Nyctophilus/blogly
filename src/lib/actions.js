@@ -1,5 +1,9 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+import { Blog } from "./models";
+import { connectToDB } from "./utils";
+
 export const getData = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/blogs`, {
     method: "GET",
@@ -24,4 +28,23 @@ export const getSingleBlog = async (slug) => {
 
   const data = await res.json();
   return data;
+};
+
+export const createBlog = async (formData) => {
+  const blog = Object.fromEntries(formData);
+  console.log(blog);
+
+  try {
+    connectToDB();
+
+    const newBlog = await new Blog({
+      ...blog,
+      slug: blog.title.replaceAll(" ", "-"),
+    });
+    await newBlog.save();
+    revalidatePath("/blogs");
+  } catch (err) {
+    console.log(err);
+    return { error: "failed to create a blog" };
+  }
 };

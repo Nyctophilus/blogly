@@ -4,23 +4,23 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Avatar,
-  Tooltip,
   Button,
 } from "@/lib/export-mat-tailwind";
 
 import Image from "next/image";
 import Link from "next/link";
 import UserCard from "../userCard/userCard";
+import Loading from "@/app/blogs/[slug]/loading";
+import { Suspense } from "react";
 const noAvatarImg = "https://i.imgur.com/CEofREj.jpg";
 
 const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
-  <Card className="w-[280px] xl:w-[24rem] overflow-hidden h-[550px]">
+  <Card className="w-full overflow-hidden h-[700px]">
     <CardHeader
       floated={false}
       shadow={false}
       color="transparent"
-      className="m-0 rounded-none w-full h-[50%]"
+      className="m-0 rounded-none w-full h-[60%]"
     >
       <Image
         src={img || noAvatarImg}
@@ -30,7 +30,7 @@ const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
         priority
       />
     </CardHeader>
-    <CardBody className="h-[40%]">
+    <CardBody className="h-[30%]">
       <Typography variant="h4" color="blue-gray">
         {title}
       </Typography>
@@ -44,10 +44,12 @@ const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
       </Typography>
     </CardBody>
     <CardFooter className="flex items-center justify-between flex-wrap">
-      <UserCard author={author} />
-      <Typography className="font-normal capitalize">
-        {createdAt || "22 nov"}
-      </Typography>
+      <Suspense fallback={<Loading />}>
+        <UserCard author={author} />
+      </Suspense>
+      {createdAt && (
+        <Typography className="font-normal capitalize">{createdAt}</Typography>
+      )}
       <Link href={`/blogs/${slug}`} className="mt-2 inline-block basis-full">
         <Button
           size="sm"
