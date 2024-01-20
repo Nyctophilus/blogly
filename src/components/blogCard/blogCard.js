@@ -11,17 +11,10 @@ import {
 
 import Image from "next/image";
 import Link from "next/link";
+import UserCard from "../userCard/userCard";
 const noAvatarImg = "https://i.imgur.com/CEofREj.jpg";
 
-const BlogCard = ({
-  title,
-  body,
-  img,
-  author,
-  slug,
-  createdAt,
-  user: [user],
-}) => (
+const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
   <Card className="w-[280px] xl:w-[24rem] overflow-hidden h-[550px]">
     <CardHeader
       floated={false}
@@ -51,23 +44,7 @@ const BlogCard = ({
       </Typography>
     </CardBody>
     <CardFooter className="flex items-center justify-between flex-wrap">
-      <div className="flex items-center space-x-2">
-        <Tooltip content={title}>
-          <Avatar
-            size="sm"
-            variant="circular"
-            alt={`${title} author`}
-            src={user.img || noAvatarImg}
-            className="border-2 border-white hover:z-10"
-          />
-        </Tooltip>
-        <div className="flex flex-col -space-y-2">
-          <Typography className="font-normal capitalize">author</Typography>
-          <Typography className="font-semibold capitalize">
-            {user.username}
-          </Typography>
-        </div>
-      </div>
+      <UserCard author={author} />
       <Typography className="font-normal capitalize">
         {createdAt || "22 nov"}
       </Typography>

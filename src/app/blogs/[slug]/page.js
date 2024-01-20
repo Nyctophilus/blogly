@@ -33,7 +33,7 @@ const Blog = async ({ params: { slug } }) => {
           </Typography>
 
           <Suspense fallback={<Loading />}>
-            <UserCard author={author} />
+            <UserCard author={author} full />
           </Suspense>
 
           <Typography
