@@ -1,5 +1,12 @@
 import Form from "./form";
 
+export const metadata = {
+  title: "Contact us",
+  description:
+    "this page is for contact form. you can send an email for us using the form.",
+};
+
+
 const Contact = () => {
   return (
     <main className="container min-h-[calc(100svh-360px)] px-[10dvw]">

@@ -6,6 +6,19 @@ import UserCard from "@/components/userCard/userCard";
 import { Suspense } from "react";
 import Loading from "./loading";
 
+
+
+export const generateMetadata = async ({ params: { slug } }) => {
+  const { title, body } = await getSingleBlog(slug);
+
+  return {
+    title: `Blog | ${title}`,
+    description: body?.substring(0, 150),
+  };
+};
+
+
+
 const Blog = async ({ params: { slug } }) => {
   const { title, body, img, createdAt, author } = await getSingleBlog(slug);
 

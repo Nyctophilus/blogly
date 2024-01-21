@@ -4,6 +4,12 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import WriteBlog from "@/components/writeBlog/writeBlog";
 
+export const metadata = {
+  title: "Blogs",
+  description:
+    "this page is listing all blogs of the website. you can also create your own blog using the form at the top of the page.",
+};
+
 const Blogs = async () => {
   const blogs = await getData();
 
