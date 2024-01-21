@@ -1,5 +1,7 @@
 .link{
     position: relative;
+
+    transition: background-color .4s ease-out, color .4s ease-out;
 }
 
 
@@ -10,6 +12,11 @@
     aspect-ratio: 1;
     width: 20px;
 
+}
+
+.active{
+    background-color:  var(--bg-alt);
+    color: white;
 }
 
 
