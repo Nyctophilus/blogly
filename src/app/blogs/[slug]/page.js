@@ -11,50 +11,50 @@ const Blog = async ({ params: { slug } }) => {
 
   return (
     <main className="container min-h-[calc(100svh-80px)] grid place-items-center py-6">
-      <figure className="w-full h-full flex flex-col lg:flex-row gap-6">
-        <span className="block relative w-full lg:w-1/3 h-2/3">
-          <Image
-            fill
-            priority={true}
-            src={img || noAvatarImg}
-            alt={title}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="rounded-xl shadow-xl shadow-blue-gray-900/50"
-          />
-        </span>
+      <Suspense fallback={<Loading />}>
+        <figure className="w-full h-full flex flex-col lg:flex-row gap-6">
+          <span className="block relative mt-12 h-[300px] lg:h-1/2 w-full lg:w-1/3">
+            <Image
+              fill
+              priority={true}
+              src={img || noAvatarImg}
+              alt={title}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="rounded-xl shadow-xl shadow-blue-gray-900/50"
+            />
+          </span>
 
-        <figcaption className="flex flex-col gap-8 lg:w-2/3">
-          <Typography
-            variant="h1"
-            color="blue-gray"
-            className="[&::first-letter]:capitalize"
-          >
-            {title}
-          </Typography>
-
-          <Suspense fallback={<Loading />}>
-            <UserCard author={author} full />
-          </Suspense>
-
-          <Typography
-            variant="h4"
-            color="gray"
-            className="[&::first-letter]:capitalize ps-2"
-          >
-            {body}
-          </Typography>
-
-          {createdAt && (
+          <figcaption className="flex flex-col gap-8 lg:w-2/3">
             <Typography
-              variant="small"
-              color="gray"
-              className="capitalize self-end"
+              variant="h1"
+              color="blue-gray"
+              className="[&::first-letter]:capitalize"
             >
-              {createdAt}
+              {title}
             </Typography>
-          )}
-        </figcaption>
-      </figure>
+
+            <UserCard author={author} full />
+
+            <Typography
+              variant="h4"
+              color="gray"
+              className="[&::first-letter]:capitalize ps-2"
+            >
+              {body}
+            </Typography>
+
+            {createdAt && (
+              <Typography
+                variant="small"
+                color="gray"
+                className="capitalize self-end"
+              >
+                {Date(createdAt).split(" ").slice(1, 4).join(" ")}
+              </Typography>
+            )}
+          </figcaption>
+        </figure>
+      </Suspense>
     </main>
   );
 };
