@@ -12,6 +12,7 @@ import {
   Input,
   Checkbox,
   Textarea,
+  iconButton,
 } from "@material-tailwind/react";
 
 export {
@@ -26,4 +27,5 @@ export {
   Input,
   Checkbox,
   Textarea,
+  iconButton,
 };

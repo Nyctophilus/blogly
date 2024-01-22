@@ -14,7 +14,7 @@ const defalutForm = {
   title: "",
   body: "",
   author: "",
-  img: "",
+  img: { url: "", valid: false },
   valid: false,
 };
 
@@ -22,6 +22,22 @@ const WriteBlog = () => {
   const [form, setForm] = useState(defalutForm);
 
   const handleFormChange = (e) => {
+    if (e.target.name === "img") {
+      setForm((prev) => {
+        const testImgUrl =
+          /(https:\/\/)?(i.imgur|avatars.githubusercontent|images.pexels).com\/(.*)/.test(
+            e.target.value
+          );
+
+        return {
+          ...prev,
+          img: { url: e.target.value, valid: testImgUrl },
+        };
+      });
+
+      return;
+    }
+
     setForm((prev) => {
       return {
         ...prev,
@@ -57,7 +73,7 @@ const WriteBlog = () => {
       <form
         action={createBlog}
         onSubmit={() => setForm(defalutForm)}
-        className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+        className="mt-8 mb-2 w-50 sm:w-96 max-w-screen-lg"
       >
         <div className="mb-1 flex flex-col gap-6">
           <Typography
@@ -73,6 +89,7 @@ const WriteBlog = () => {
             value={form.title}
             onChange={handleFormChange}
             name="title"
+            maxLength={30}
           />
           <Typography
             variant="h6"
@@ -105,16 +122,17 @@ const WriteBlog = () => {
           <Typography
             variant="h6"
             color="blue-gray"
-            className="-mb-3 capitalize"
+            className="-mb-3 [&::first-letter]:capitalize"
           >
-            blog cover
+            blog cover (imgur.com) or (pexels.com)
           </Typography>
           <Input
             size="lg"
-            label="image cover url (imgur.com) or (pexels.com)"
-            value={form.img}
+            label="image cover url"
+            value={form.img.url}
             onChange={handleFormChange}
             name="img"
+            error={form.img.url && !form.img.valid ? true : false}
           />
         </div>
 

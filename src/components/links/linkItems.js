@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "./links.module.css";
 import { usePathname } from "next/navigation";
 import { signOutGit } from "@/lib/actions";
+import { Avatar, Tooltip } from "@/lib/export-mat-tailwind";
 
 const links = ["home", "about", "contact us", "blogs"];
 
@@ -34,17 +35,32 @@ const LinkItems = ({ row, session }) => {
       ))}
 
       {session?.user?.isAdmin && (
-        <Link className={`${linkStyle} ${styles.active}`} href={"/admin"}>
+        <Link className={linkStyle} href={"/admin"}>
           admin
         </Link>
       )}
 
       {session?.user ? (
-        <form action={signOutGit}>
-          <button type="submit" className={`${linkStyle} ${styles.active}`}>
-            logout
-          </button>
-        </form>
+        <>
+          <form action={signOutGit}>
+            <button type="submit" className={linkStyle}>
+              logout
+            </button>
+          </form>
+          <Tooltip
+            content={session.user.name}
+            animate={{
+              mount: { scale: 1, y: 0 },
+              unmount: { scale: 0, y: 25 },
+            }}
+          >
+            <Avatar
+              src={session.user.image}
+              alt={`${session.user.name} avatar`}
+              size="sm"
+            />
+          </Tooltip>
+        </>
       ) : (
         <Link
           className={`${linkStyle} ${pathname === "/login" && styles.active}`}
