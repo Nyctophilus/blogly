@@ -31,7 +31,11 @@ const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
       />
     </CardHeader>
     <CardBody className="h-[30%]">
-      <Typography variant="h4" color="blue-gray">
+      <Typography
+        variant="h4"
+        color="blue-gray"
+        className="[&::first-letter]:capitalize"
+      >
         {title}
       </Typography>
       <Typography
