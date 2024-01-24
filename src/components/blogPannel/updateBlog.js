@@ -15,14 +15,12 @@ const defalutForm = {
   title: "",
   body: "",
   img: { url: "", valid: false },
-  valid: {
-    isValid: false,
-    msg: "",
-  },
 };
 
-const UpdateBlog = () => {
+const UpdateBlog = ({ author }) => {
   const [form, setForm] = useState(defalutForm);
+  const [valid, setValid] = useState(false);
+  const [msg, setMsg] = useState("");
 
   const handleFormChange = (e) => {
     if (e.target.name === "img") {
@@ -62,29 +60,19 @@ const UpdateBlog = () => {
         if (form.img.url) updates = { ...updates, img: form.img.url };
       }
 
-      const res = await updateBlog(form.catcher, updates);
-      setForm((prev) => {
-        return {
-          ...prev,
-          valid: { msg: res, isValid: prev.valid.isValid },
-        };
-      });
+      const res = await updateBlog(form.catcher, updates, author);
+      setForm(defalutForm);
+      setMsg(res);
     }
   };
 
   useEffect(() => {
-    setForm((prev) => {
-      return {
-        ...prev,
-        valid: {
-          isValid:
-            prev.catcher &&
-            (prev.title || prev.body || (prev.img.url && prev.img.valid))
-              ? true
-              : false,
-        },
-      };
-    });
+    setValid(
+      form.catcher &&
+        (form.title || form.body || (form.img.url && form.img.valid))
+        ? true
+        : false
+    );
   }, [form.catcher, form.title, form.img, form.body]);
 
   return (
@@ -166,21 +154,16 @@ const UpdateBlog = () => {
           />
         </div>
 
-        <Button
-          color="red"
-          fullWidth
-          type="submit"
-          disabled={!form.valid.isValid}
-        >
+        <Button color="red" fullWidth type="submit" disabled={!valid}>
           update blog
         </Button>
-        {form.valid.msg && (
+        {msg && (
           <Typography
             variant="h6"
-            color={form.valid.msg.success ? "green" : "red"}
+            color={msg.success ? "green" : "red"}
             className="animate-pulse [&::first-letter]:capitalize"
           >
-            {form.valid.msg.success || form.valid.msg.error}
+            {msg.success || msg.error}
           </Typography>
         )}
       </form>

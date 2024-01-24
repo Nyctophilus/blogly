@@ -1,15 +1,20 @@
+import { auth } from "@/lib/auth";
 import DeleteBlog from "./deleteBlog";
 import UpdateBlog from "./updateBlog";
 import WriteBlog from "./writeBlog";
 
-const BlogPannel = () => {
+const BlogPannel = async () => {
+  const {
+    user: { id },
+  } = await auth();
+
   return (
     <section className="container flex flex-wrap justify-between items-center mt-20">
-      <WriteBlog />
+      <WriteBlog author={id} />
 
-      <UpdateBlog />
+      <UpdateBlog author={id} />
 
-      <DeleteBlog />
+      <DeleteBlog author={id} />
     </section>
   );
 };

@@ -4,7 +4,7 @@ import { deleteBlog } from "@/lib/actions";
 import { Card, Button, Typography, Input } from "@/lib/export-mat-tailwind";
 import { useState } from "react";
 
-const DeleteBlog = () => {
+const DeleteBlog = ({ author }) => {
   const [title, setTitle] = useState({
     value: "",
     msg: "",
@@ -18,7 +18,7 @@ const DeleteBlog = () => {
     e.preventDefault();
 
     if (title.value) {
-      const res = await deleteBlog({ title: title.value });
+      const res = await deleteBlog({ title: title.value, author });
       setTitle({ value: "", msg: res });
     }
   };

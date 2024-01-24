@@ -13,25 +13,19 @@ import { useState, useEffect } from "react";
 const defalutForm = {
   title: "",
   body: "",
-  author: "",
-  img: { url: "", valid: false },
+  img: { url: "", valid: true },
   valid: false,
 };
 
-const WriteBlog = () => {
+const WriteBlog = ({ author }) => {
   const [form, setForm] = useState(defalutForm);
 
   const handleFormChange = (e) => {
     if (e.target.name === "img") {
       setForm((prev) => {
-        const testImgUrl =
-          /(https:\/\/)?(i.imgur|avatars.githubusercontent|images.pexels).com\/(.*)/.test(
-            e.target.value
-          );
-
         return {
           ...prev,
-          img: { url: e.target.value, valid: testImgUrl },
+          img: { url: e.target.value, valid: prev.img.valid },
         };
       });
 
@@ -48,12 +42,43 @@ const WriteBlog = () => {
 
   useEffect(() => {
     setForm((prev) => {
+      const testImgUrl = prev.img.url
+        ? /(https:\/\/)?(i.imgur|avatars.githubusercontent|images.pexels).com\/(.*)/.test(
+            prev.img.url
+          )
+        : true;
+
       return {
         ...prev,
-        valid: prev.title && prev.body && prev.author,
+        img: { url: prev.img.url, valid: testImgUrl },
       };
     });
-  }, [form.title, form.author, form.body]);
+  }, [form.img.url]);
+
+  useEffect(() => {
+    setForm((prev) => {
+      return {
+        ...prev,
+
+        valid: prev.title && prev.body && prev.img.valid,
+      };
+    });
+  }, [form.title, form.body, form.img.valid]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (form.title && form.body) {
+      await createBlog({
+        title: form.title,
+        body: form.body,
+        img: form.img.url,
+        author,
+      });
+    }
+
+    setForm(defalutForm);
+  };
 
   return (
     <Card color="transparent" className="p-4 w-fit shadow-lg mx-auto mb-12">
@@ -71,8 +96,7 @@ const WriteBlog = () => {
         what is in your mind right now.
       </Typography>
       <form
-        action={createBlog}
-        onSubmit={() => setForm(defalutForm)}
+        onSubmit={handleSubmit}
         className="mt-8 mb-2 w-50 sm:w-96 max-w-screen-lg"
       >
         <div className="mb-1 flex flex-col gap-6">
@@ -104,20 +128,6 @@ const WriteBlog = () => {
             value={form.body}
             onChange={handleFormChange}
             name="body"
-          />
-          <Typography
-            variant="h6"
-            color="blue-gray"
-            className="-mb-3 capitalize"
-          >
-            author
-          </Typography>
-          <Input
-            size="lg"
-            label="author id"
-            value={form.author}
-            onChange={handleFormChange}
-            name="author"
           />
           <Typography
             variant="h6"
