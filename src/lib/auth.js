@@ -4,27 +4,6 @@ import CredentialProvider from "next-auth/providers/credentials";
 import { User } from "./models";
 import { connectToDB } from "./utils";
 import { authConfig } from "./auth.config";
-import bcrypt from "bcrypt";
-
-const CredentialsLogin = async (credentials) => {
-  try {
-    connectToDB();
-
-    const user = await User.findOne({ username: credentials.username });
-    if (!user) throw new Error("Invalid username!");
-
-    const isPwCorrect = await bcrypt.compare(
-      credentials.password,
-      user.password
-    );
-    if (!isPwCorrect) throw new Error("Invalid Password!");
-
-    return user;
-  } catch (error) {
-    console.log(error);
-    throw new Error("login with credentials failed!");
-  }
-};
 
 export const {
   handlers: { GET, POST },
@@ -41,7 +20,8 @@ export const {
     CredentialProvider({
       async authorize(credentials) {
         try {
-          const user = await CredentialsLogin(credentials);
+          const user = await User.findOne({ username: credentials.username });
+
           return user;
         } catch (error) {
           console.log(error);

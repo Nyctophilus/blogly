@@ -119,15 +119,24 @@ export const loginWithCredentials = async (prevState, formData) => {
   const { username, password, email } = Object.fromEntries(formData);
 
   try {
-    const res = await signIn("credentials", { username, password, email });
-    console.log(res);
+    connectToDB();
+
+    const user = await User.findOne({ username });
+    if (!user) return { error: "Invalid username" };
+
+    if (email !== user.email) return { error: "Invalid email" };
+
+    const isPwCorrect = await bcrypt.compare(password, user.password);
+    if (!isPwCorrect) return { error: "Invalid Password" };
+
+    await signIn("credentials", { username, password, email });
   } catch (error) {
     console.log(error);
 
-    if (error.message.includes("credentialssignin"))
-      return { error: "Invalid username or password" };
+    if (error.message.includes("CredentialsSignin"))
+      return { error: "Invalid Credentials" };
 
-    return { error: "" };
+    throw error;
   }
 };
 
