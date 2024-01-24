@@ -1,9 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { Blog } from "./models";
+import { Blog, User } from "./models";
 import { connectToDB } from "./utils";
 import { signIn, signOut } from "./auth";
+import bcrypt from "bcrypt";
 
 export const getData = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/blogs`, {
@@ -31,10 +32,7 @@ export const getSingleBlog = async (slug) => {
   return data;
 };
 
-export const createBlog = async (formData) => {
-  const blog = Object.fromEntries(formData);
-  console.log(blog);
-
+export const createBlog = async (blog) => {
   try {
     connectToDB();
 
@@ -50,10 +48,16 @@ export const createBlog = async (formData) => {
   }
 };
 
-export const deleteBlog = async ({ title }) => {
+export const deleteBlog = async ({ title, author }) => {
   const slug = title.replaceAll(" ", "-");
   try {
     connectToDB();
+
+    const blog = await Blog.findOne({ slug });
+    console.log(blog.author.toString());
+
+    const isAuthor = blog.author.toString() === author;
+    if (!isAuthor) return { error: "You aren't the author of this blog." };
 
     const res = await Blog.deleteOne({ slug });
     console.log(res);
@@ -72,23 +76,28 @@ export const deleteBlog = async ({ title }) => {
   }
 };
 
-export const updateBlog = async (title, updates) => {
+export const updateBlog = async (title, updates, author) => {
   const catcher = title.replaceAll(" ", "-");
 
   try {
     connectToDB();
 
-    const res = await Blog.updateOne(
-      { slug: catcher },
-      { ...updates, slug: catcher }
-    );
+    const blog = await Blog.findOne({ title });
+    if (blog) {
+      const isAuthor = blog.author.toString() === author;
+      if (!isAuthor) return { error: "You aren't the author of this blog." };
 
-    if (res.modifiedCount) {
-      revalidatePath(`/blogs/${catcher}`, "page");
-      revalidatePath("/blogs");
-      return { success: "the blog has been updated successfully." };
+      const res = await Blog.updateOne(
+        { slug: catcher },
+        { ...updates, slug: catcher }
+      );
+
+      if (res.modifiedCount) {
+        revalidatePath(`/blogs/${catcher}`, "page");
+        revalidatePath("/blogs");
+        return { success: "the blog has been updated successfully." };
+      }
     }
-
     return {
       error: "the blog is not found... Please, try to check the title again.",
     };
@@ -98,11 +107,53 @@ export const updateBlog = async (title, updates) => {
   }
 };
 
-
 export const handleGitLogin = async () => {
   await signIn("github");
 };
 
 export const signOutGit = async () => {
   await signOut();
+};
+
+export const loginWithCredentials = async (prevState, formData) => {
+  const { username, password, email } = Object.fromEntries(formData);
+
+  try {
+    const res = await signIn("credentials", { username, password, email });
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+
+    if (error.message.includes("credentialssignin"))
+      return { error: "Invalid username or password" };
+
+    return { error: "" };
+  }
+};
+
+export const registerWithCredentials = async (prevState, formData) => {
+  const { username, password, repassword, email } =
+    Object.fromEntries(formData);
+  console.log({ username, password, repassword, email });
+
+  if (password !== repassword) return { error: "passwords doesn't match." };
+
+  try {
+    connectToDB();
+
+    const user = await User.findOne({ username });
+    if (user) return { error: "username already been used." };
+
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new User({ username, password: hashPassword, email });
+
+    await newUser.save();
+    console.log("user saved to db");
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to login with credentials" };
+  }
 };
