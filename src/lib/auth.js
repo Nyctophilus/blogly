@@ -11,18 +11,18 @@ const CredentialsLogin = async (credentials) => {
     connectToDB();
 
     const user = await User.findOne({ username: credentials.username });
-    if (!user) return { error: "Invalid credentials!" };
+    if (!user) throw new Error("Invalid username!");
 
     const isPwCorrect = await bcrypt.compare(
       credentials.password,
       user.password
     );
-    if (!isPwCorrect) return { error: "Invalid password!" };
+    if (!isPwCorrect) throw new Error("Invalid Password!");
 
     return user;
   } catch (error) {
     console.log(error);
-    return { error: "login with credentials failed!" };
+    throw new Error("login with credentials failed!");
   }
 };
 
