@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { signOutGit } from "@/lib/actions";
 import { Avatar, Tooltip } from "@/lib/export-mat-tailwind";
 
+const noAvatarImg = "https://i.imgur.com/CEofREj.jpg";
 const links = ["home", "about", "contact us", "blogs"];
 
 const LinkItems = ({ row, session }) => {
@@ -42,11 +43,6 @@ const LinkItems = ({ row, session }) => {
 
       {session?.user ? (
         <>
-          <form action={signOutGit}>
-            <button type="submit" className={linkStyle}>
-              logout
-            </button>
-          </form>
           <Tooltip
             content={session.user.name}
             animate={{
@@ -55,11 +51,16 @@ const LinkItems = ({ row, session }) => {
             }}
           >
             <Avatar
-              src={session.user.image}
+              src={session.user.image || noAvatarImg}
               alt={`${session.user.name} avatar`}
               size="sm"
             />
           </Tooltip>
+          <form action={signOutGit} className="-ms-1">
+            <button type="submit" className={linkStyle}>
+              logout
+            </button>
+          </form>
         </>
       ) : (
         <Link
