@@ -3,8 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { Blog, User } from "./models";
 import { connectToDB } from "./utils";
-import { signIn, signOut } from "./auth";
+import { auth, signIn, signOut } from "./auth";
 import bcrypt from "bcrypt";
+import { getUser } from "./data";
 
 export const getData = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/blogs`, {
@@ -165,4 +166,18 @@ export const registerWithCredentials = async (prevState, formData) => {
     console.log(error);
     return { error: "Failed to login with credentials" };
   }
+};
+
+export const getSession = async () => {
+  let session = await auth();
+
+  if (session?.user) {
+    const user = await getUser(session?.user?.email);
+
+    session.user.name = user.username;
+    session.user.isAdmin = user.isAdmin;
+    session.user.id = user._id.toString();
+  }
+
+  return session;
 };
