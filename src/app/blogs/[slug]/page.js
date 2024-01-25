@@ -20,7 +20,7 @@ export const generateMetadata = async ({ params: { slug } }) => {
 
 
 const Blog = async ({ params: { slug } }) => {
-  const { title, body, img, createdAt, author } = await getSingleBlog(slug);
+  const { title, body, img, createdAt } = await getSingleBlog(slug);
 
   return (
     <main className="container min-h-[calc(100svh-80px)] grid place-items-center py-6">
@@ -46,7 +46,7 @@ const Blog = async ({ params: { slug } }) => {
               {title}
             </Typography>
 
-            <UserCard author={author} full />
+            <UserCard full />
 
             <Typography
               variant="h4"

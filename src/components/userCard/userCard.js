@@ -1,9 +1,11 @@
-import { getUser } from "@/lib/data";
+import { getSession } from "@/lib/actions";
 import { Typography, Avatar, Tooltip } from "@/lib/export-mat-tailwind";
 const noAvatarImg = "https://i.imgur.com/CEofREj.jpg";
 
-const UserCard = async ({ author, full }) => {
-  const { username, img, email } = await getUser(author);
+const UserCard = async ({ full }) => {
+  const {
+    user: { name, img, email },
+  } = await getSession();
 
   return (
     <div
@@ -12,7 +14,7 @@ const UserCard = async ({ author, full }) => {
       }`}
     >
       <div className={`flex ${full ? "gap-6 p-6" : "gap-1"} items-center`}>
-        <Tooltip content={username}>
+        <Tooltip content={name}>
           <Avatar
             src={img || noAvatarImg}
             alt="avatar"
@@ -26,7 +28,7 @@ const UserCard = async ({ author, full }) => {
             publisher
           </Typography>
           <Typography variant="h5" color="black" className="capitalize mt-2">
-            {username}
+            {name}
           </Typography>
           <Typography variant="h6" color="black">
             {email}

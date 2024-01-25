@@ -15,7 +15,7 @@ import { Suspense } from "react";
 const noAvatarImg = "https://i.imgur.com/CEofREj.jpg";
 
 const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
-  <Card className="w-full overflow-hidden h-[700px]">
+  <Card className="w-full max-w-[500px] overflow-hidden h-[700px]">
     <CardHeader
       floated={false}
       shadow={false}
@@ -49,7 +49,7 @@ const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
     </CardBody>
     <CardFooter className="flex items-center justify-between flex-wrap">
       <Suspense fallback={<Loading />}>
-        <UserCard author={author} />
+        <UserCard />
       </Suspense>
       {createdAt && (
         <Typography className="font-normal capitalize">

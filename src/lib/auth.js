@@ -38,7 +38,7 @@ export const {
           const user = await User.findOne({ username: profile.name });
 
           if (!user) {
-            const newUser = await User({
+            const newUser = await new User({
               username: profile.name,
               email: profile.email,
               img: profile.avatar_url,

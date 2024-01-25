@@ -9,7 +9,7 @@ import { Avatar, Tooltip } from "@/lib/export-mat-tailwind";
 const noAvatarImg = "https://i.imgur.com/CEofREj.jpg";
 const links = ["home", "about", "contact us", "blogs"];
 
-const LinkItems = ({ row, session, uName }) => {
+const LinkItems = ({ row, session }) => {
   const horStyles = "md:flex gap-2 items-center hidden";
   const VerStyles =
     "flex flex-col gap-6 items-center justify-center gap-4 py-6 md:hidden rounded-2xl bg-[var(--bg-900)] fixed top-[80px] right-[0] h-[calc(100svh-120px)] w-[20svh] overflow-hidden z-10";
@@ -44,7 +44,7 @@ const LinkItems = ({ row, session, uName }) => {
       {session?.user ? (
         <>
           <Tooltip
-            content={session.user.name || uName}
+            content={session.user.name}
             animate={{
               mount: { scale: 1, y: 0 },
               unmount: { scale: 0, y: 25 },
