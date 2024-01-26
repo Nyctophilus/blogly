@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+// [ ] loop over blogs' images and make inf scroller with that
 const InfScoller = () => (
   <div className="py-6 inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
     <ul className="flex animate-infinite-scroll items-center justify-center md:justify-start">

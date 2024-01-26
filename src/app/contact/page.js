@@ -9,7 +9,7 @@ export const metadata = {
 
 const Contact = () => {
   return (
-    <main className="container min-h-[calc(100svh-360px)] px-[10dvw]">
+    <main className="container min-h-[calc(100svh-360px)] px-[10dvw] py-10">
       <h1 className="capitalize font-bold text-3xl lg:text-6xl text-center mb-8">
         contact us
       </h1>
@@ -34,7 +34,7 @@ const Contact = () => {
         </div>
         <div className="sm:w-[50%] sm:border-y-[2px] flex flex-col justify-center items-center gap-6">
           <h2 className="uppercase w-[70%] font-bold">send me a message</h2>
-
+          {/* [ ] handle mails */}
           <Form />
         </div>
       </div>
