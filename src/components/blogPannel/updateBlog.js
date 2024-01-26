@@ -9,6 +9,7 @@ import {
   Textarea,
 } from "@/lib/export-mat-tailwind";
 import { updateBlog } from "@/lib/actions";
+import Tostify from "../tostify/tostify";
 
 const defalutForm = {
   catcher: "",
@@ -53,14 +54,16 @@ const UpdateBlog = ({ author }) => {
     if (form.catcher) {
       let updates = {};
       if (form.title || form.body || form.img.url) {
-        if (form.title) updates = { ...updates, title: form.title };
+        if (form.title)
+          updates = { ...updates, title: form.title.trim().toLowerCase() };
 
         if (form.body) updates = { ...updates, body: form.body };
 
         if (form.img.url) updates = { ...updates, img: form.img.url };
       }
 
-      const res = await updateBlog(form.catcher, updates, author);
+      // check update and delete and make the admin page
+      const res = await updateBlog(form.catcher.toLowerCase(), updates, author);
       setForm(defalutForm);
       setMsg(res);
     }
@@ -157,15 +160,7 @@ const UpdateBlog = ({ author }) => {
         <Button color="red" fullWidth type="submit" disabled={!valid}>
           update blog
         </Button>
-        {msg && (
-          <Typography
-            variant="h6"
-            color={msg.success ? "green" : "red"}
-            className="animate-pulse [&::first-letter]:capitalize"
-          >
-            {msg.success || msg.error}
-          </Typography>
-        )}
+        {msg && <Tostify message={msg} />}
       </form>
     </Card>
   );

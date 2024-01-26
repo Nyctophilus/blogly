@@ -10,7 +10,7 @@ import { getUser } from "./data";
 export const getData = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/blogs`, {
     method: "GET",
-    next: { revalidate: 3600 },
+    next: { revalidate: 1 },
   });
   if (!res.ok) throw new Error("something went wrong!");
   const data = await res.json();
@@ -50,7 +50,9 @@ export const createBlog = async (blog) => {
 };
 
 export const deleteBlog = async ({ title, author }) => {
-  const slug = title.replaceAll(" ", "-");
+  const slug = title.trim().replaceAll(" ", "-");
+  console.log(slug);
+
   try {
     connectToDB();
 
@@ -78,7 +80,10 @@ export const deleteBlog = async ({ title, author }) => {
 };
 
 export const updateBlog = async (title, updates, author) => {
-  const catcher = title.replaceAll(" ", "-");
+  if (!Object.keys(updates).length)
+    return { error: "You have to specify atleast one edit to your blog." };
+
+  updates.slug = updates?.title.trim().replaceAll(" ", "-");
 
   try {
     connectToDB();
@@ -88,13 +93,10 @@ export const updateBlog = async (title, updates, author) => {
       const isAuthor = blog.author.toString() === author;
       if (!isAuthor) return { error: "You aren't the author of this blog." };
 
-      const res = await Blog.updateOne(
-        { slug: catcher },
-        { ...updates, slug: catcher }
-      );
+      const res = await Blog.updateOne({ title }, updates);
 
       if (res.modifiedCount) {
-        revalidatePath(`/blogs/${catcher}`, "page");
+        revalidatePath(`/blogs/${updates.slug}`, "page");
         revalidatePath("/blogs");
         return { success: "the blog has been updated successfully." };
       }

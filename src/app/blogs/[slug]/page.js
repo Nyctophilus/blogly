@@ -20,12 +20,12 @@ export const generateMetadata = async ({ params: { slug } }) => {
 
 
 const Blog = async ({ params: { slug } }) => {
-  const { title, body, img, createdAt } = await getSingleBlog(slug);
+  const { title, body, img, createdAt, author } = await getSingleBlog(slug);
 
   return (
     <main className="container min-h-[calc(100svh-80px)] grid place-items-center py-6">
       <Suspense fallback={<Loading />}>
-        <figure className="w-full h-full flex flex-col lg:flex-row gap-6">
+        <figure className="w-full min-w-[80dvw] h-full flex flex-col lg:flex-row gap-6">
           <span className="block relative mt-12 h-[300px] lg:h-1/2 w-full lg:w-1/3">
             <Image
               fill
@@ -46,7 +46,7 @@ const Blog = async ({ params: { slug } }) => {
               {title}
             </Typography>
 
-            <UserCard full />
+            <UserCard full author={author} />
 
             <Typography
               variant="h4"

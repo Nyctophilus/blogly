@@ -70,7 +70,7 @@ const WriteBlog = ({ author }) => {
 
     if (form.title && form.body) {
       await createBlog({
-        title: form.title,
+        title: form.title.trim().toLowerCase(),
         body: form.body,
         img: form.img.url,
         author,

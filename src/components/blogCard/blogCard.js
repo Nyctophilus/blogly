@@ -49,7 +49,7 @@ const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
     </CardBody>
     <CardFooter className="flex items-center justify-between flex-wrap">
       <Suspense fallback={<Loading />}>
-        <UserCard />
+        <UserCard author={author} />
       </Suspense>
       {createdAt && (
         <Typography className="font-normal capitalize">

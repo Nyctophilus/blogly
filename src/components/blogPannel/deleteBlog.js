@@ -3,6 +3,7 @@
 import { deleteBlog } from "@/lib/actions";
 import { Card, Button, Typography, Input } from "@/lib/export-mat-tailwind";
 import { useState } from "react";
+import Tostify from "../tostify/tostify";
 
 const DeleteBlog = ({ author }) => {
   const [title, setTitle] = useState({
@@ -18,7 +19,10 @@ const DeleteBlog = ({ author }) => {
     e.preventDefault();
 
     if (title.value) {
-      const res = await deleteBlog({ title: title.value, author });
+      const res = await deleteBlog({
+        title: title.value.trim().toLowerCase(),
+        author,
+      });
       setTitle({ value: "", msg: res });
     }
   };
@@ -59,15 +63,7 @@ const DeleteBlog = ({ author }) => {
         <Button color="red" fullWidth type="submit" disabled={!title.value}>
           delete blog
         </Button>
-        {title.msg && (
-          <Typography
-            variant="h6"
-            color={title.msg.success ? "green" : "red"}
-            className="animate-pulse [&::first-letter]:capitalize"
-          >
-            {title.msg.success || title.msg.error}
-          </Typography>
-        )}
+        {title.msg && <Tostify message={title.msg} />}
       </form>
     </Card>
   );
