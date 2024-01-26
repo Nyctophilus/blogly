@@ -37,11 +37,16 @@ export const getUsers = async () => {
   }
 };
 
-export const getUser = async (email) => {
+export const getUser = async (data, isId) => {
   try {
     connectToDB();
 
-    const user = await User.findOne({ email });
+    if (isId) {
+      const user = await User.findById(data);
+      return user;
+    }
+
+    const user = await User.findOne({ email: data });
     return user;
   } catch (error) {
     console.log(error);
