@@ -49,7 +49,7 @@ export const createBlog = async (blog) => {
   }
 };
 
-export const deleteBlog = async ({ title, author }) => {
+export const deleteBlog = async ({ title, author }, isAdmin) => {
   const slug = title.trim().replaceAll(" ", "-");
   console.log(slug);
 
@@ -59,13 +59,18 @@ export const deleteBlog = async ({ title, author }) => {
     const blog = await Blog.findOne({ slug });
     console.log(blog.author.toString());
 
-    const isAuthor = blog.author.toString() === author;
-    if (!isAuthor) return { error: "You aren't the author of this blog." };
+    console.log(isAdmin);
+
+    if (!isAdmin) {
+      const isAuthor = blog.author.toString() === author;
+      if (!isAuthor) return { error: "You aren't the author of this blog." };
+    }
 
     const res = await Blog.deleteOne({ slug });
     console.log(res);
 
     if (res.deletedCount) {
+      revalidatePath("/admin");
       revalidatePath("/blogs");
       return { success: "the blog deleted successfully." };
     }
@@ -76,6 +81,20 @@ export const deleteBlog = async ({ title, author }) => {
   } catch (error) {
     console.log(error);
     return { error: "failed to delete the blog." };
+  }
+};
+
+export const deleteUser = async (author) => {
+  try {
+    await Blog.deleteMany({ author });
+    await User.findByIdAndDelete(author);
+
+    revalidatePath("/admin");
+    revalidatePath("/blogs");
+    return { error: "user deleted successfully." };
+  } catch (error) {
+    console.log(error);
+    return { error: "failed to delete a user." };
   }
 };
 
@@ -178,6 +197,7 @@ export const getSession = async () => {
 
     session.user.name = user.username;
     session.user.isAdmin = user.isAdmin;
+    session.user.image = user.img;
     session.user.id = user._id.toString();
   }
 
