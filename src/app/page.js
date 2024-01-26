@@ -2,7 +2,7 @@ import MyButton from "@/components/button/button";
 import Link from "next/link";
 
 export default function Home() {
-  const sectionStyles = `grid place-items-center min-h-[calc(100dvh-80px)] relative before:absolute before:inset-0 before:bg-[#0006] before:backdrop-lg before:z-[-1] after:absolute after:inset-0 after:bg-center	after:bg-no-repeat after:bg-cover after:blur-[2px] after:z-[-2] after:bg-[url(https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)]`;
+  const sectionStyles = `grid place-items-center min-h-[calc(100dvh-80px)] before:absolute before:inset-0 before:bg-[#0006] before:backdrop-lg before:z-[-1] after:absolute after:inset-0 after:bg-center	after:bg-no-repeat after:bg-cover after:z-[-2] after:bg-[url(https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)]`;
 
   return (
     <>

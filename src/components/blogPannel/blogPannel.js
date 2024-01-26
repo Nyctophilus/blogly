@@ -9,7 +9,7 @@ const BlogPannel = async () => {
   } = await getSession();
 
   return (
-    <section className="container flex flex-wrap justify-between items-center mt-20">
+    <section className="container flex flex-wrap gap-4 justify-between items-center mt-20">
       <WriteBlog author={id} />
 
       <UpdateBlog author={id} />
