@@ -7,30 +7,36 @@ import { auth, signIn, signOut } from "./auth";
 import bcrypt from "bcrypt";
 import { getUser } from "./data";
 
-export const getData = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/blogs`, {
-    method: "GET",
-    next: { revalidate: 1 },
-  });
-  if (!res.ok) throw new Error("something went wrong!");
-  const data = await res.json();
+// export const getData = async () => {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/blogs`, {
+//     method: "GET",
+//     next: { revalidate: 1 },
+//   });
+//   if (!res.ok) throw new Error("something went wrong!");
+//   const data = await res.json();
 
-  return data;
+//   return data;
+// };
+export const getData = async () => {
+try {
+  connectToDB()
+  const blogs = await Blog.find()
+  return blogs;
+} catch (error) {
+  console.log(error);
+ return {error: 'can not find the data'}
+}
 };
 
 export const getSingleBlog = async (slug) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/blogs/${slug}`,
-    {
-      method: "GET",
-      next: { revalidate: 1 },
-    }
-  );
+try {
+  const blog = await Blog.findOne({slug})
 
-  if (!res.ok) throw new Error("fetch request is failed");
-
-  const data = await res.json();
-  return data;
+  return blog
+} catch (error) {
+  console.log(error);
+  return {error: `can not find the blog ${slug}`}
+}
 };
 
 export const createBlog = async (blog) => {

@@ -14,7 +14,7 @@ import Loading from "@/app/blogs/[slug]/loading";
 import { Suspense } from "react";
 const noAvatarImg = "https://i.imgur.com/CEofREj.jpg";
 
-const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
+const BlogCard = ({ blog: { title, body, img, author, slug, createdAt } }) => (
   <Card className="w-full max-w-[500px] overflow-hidden h-[700px]">
     <CardHeader
       floated={false}
@@ -82,5 +82,7 @@ const BlogCard = ({ title, body, img, author, slug, createdAt }) => (
     </CardFooter>
   </Card>
 );
+
+
 
 export default BlogCard;

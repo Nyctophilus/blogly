@@ -5,17 +5,18 @@ import { getSession } from "@/lib/actions";
 
 const BlogPannel = async () => {
   const {
-    user: { id },
+    user: { id, isAdmin },
   } = await getSession();
 
-  return (
-    <section className="container flex flex-wrap gap-4 justify-between items-center mt-20">
-      <WriteBlog author={id} />
+  if (!isAdmin)
+    return (
+      <section className="container flex flex-wrap gap-4 justify-between items-center mt-20">
+        <WriteBlog author={id} />
 
-      <UpdateBlog author={id} />
+        <UpdateBlog author={id} />
 
-      <DeleteBlog author={id} />
-    </section>
-  );
+        <DeleteBlog author={id} />
+      </section>
+    );
 };
 export default BlogPannel;
