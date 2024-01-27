@@ -5,8 +5,7 @@ import { Typography } from "@/lib/export-mat-tailwind";
 import UserCard from "@/components/userCard/userCard";
 import { Suspense } from "react";
 import Loading from "./loading";
-
-
+import { getBlogs } from "@/lib/data";
 
 export const generateMetadata = async ({ params: { slug } }) => {
   const { title, body } = await getSingleBlog(slug);
@@ -17,6 +16,16 @@ export const generateMetadata = async ({ params: { slug } }) => {
   };
 };
 
+// generate dynamic pages in build time and so-like pre-render em
+export const dynamicParams = false;
+export const dynamic = "force-static";
+export async function generateStaticParams() {
+  const posts = await getBlogs();
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 
 const Blog = async ({ params: { slug } }) => {
