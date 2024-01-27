@@ -16,14 +16,14 @@ export const generateMetadata = async ({ params: { slug } }) => {
 };
 
 // generate dynamic pages in build time and so-like pre-render em
-// export async function generateStaticParams() {
-//   const blogs = await getData();
-//   console.log(blogs);
+export async function generateStaticParams() {
+  const blogs = await getData();
+  console.log(blogs);
 
-//   return blogs.map((blog) => ({
-//     slug: blog.slug,
-//   }));
-// }
+  return blogs.map((blog) => ({
+    slug: blog.slug,
+  }));
+}
 
 const Blog = async ({ params: { slug } }) => {
   const { title, body, img, createdAt, author } = await getSingleBlog(slug);
