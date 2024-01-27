@@ -1,4 +1,4 @@
-import { getSingleBlog } from "@/lib/actions";
+import { getData, getSingleBlog } from "@/lib/actions";
 import Image from "next/image";
 const noAvatarImg = "https://i.imgur.com/CEofREj.jpg";
 import { Typography } from "@/lib/export-mat-tailwind";
@@ -15,7 +15,15 @@ export const generateMetadata = async ({ params: { slug } }) => {
   };
 };
 
+// generate dynamic pages in build time and so-like pre-render em
+export async function generateStaticParams() {
+  const blogs = await getData();
+  console.log(blogs);
 
+  return blogs.map((blog) => ({
+    slug: blog.slug,
+  }));
+}
 
 const Blog = async ({ params: { slug } }) => {
   const { title, body, img, createdAt, author } = await getSingleBlog(slug);
