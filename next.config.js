@@ -19,6 +19,10 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    externalDir: true,
+  },
+  disableExperimentalFeaturesWarning: true,
 };
 
 module.exports = nextConfig;
