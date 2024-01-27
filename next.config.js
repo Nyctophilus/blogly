@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
   images: {
-    loader: "custom",
-    loaderFile: "./my-loader.js",
     remotePatterns: [
       {
         protocol: "https",
@@ -19,10 +16,6 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    externalDir: true,
-  },
-  disableExperimentalFeaturesWarning: true,
 };
 
 module.exports = nextConfig;

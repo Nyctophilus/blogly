@@ -5,7 +5,6 @@ import { Typography } from "@/lib/export-mat-tailwind";
 import UserCard from "@/components/userCard/userCard";
 import { Suspense } from "react";
 import Loading from "./loading";
-import { getBlogs } from "@/lib/data";
 
 export const generateMetadata = async ({ params: { slug } }) => {
   const { title, body } = await getSingleBlog(slug);
