@@ -198,13 +198,20 @@ export const registerWithCredentials = async (prevState, formData) => {
 export const getSession = async () => {
   let session = await auth();
 
+  let user;
   if (session?.user) {
-    const user = await getUser(session?.user?.email);
+    if (session.user?.email) {
+      user = await getUser(session?.user?.email);
+      session.user.id = user._id.toString();
+    } else if (session.user?.id) {
+      user = await getUser(session?.user?.id, true);
+      session.user.email = user.email;
+    }
 
-    session.user.name = user.username;
+    session.user.name = user.username || user.name;
+    session.user.username = user.username || user.name;
     session.user.isAdmin = user.isAdmin;
     session.user.image = user.img;
-    session.user.id = user._id.toString();
   }
 
   return session;
