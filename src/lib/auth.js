@@ -5,6 +5,7 @@ import { User } from "./models";
 import { connectToDB } from "./utils";
 import { authConfig } from "./auth.config";
 
+
 export const {
   handlers: { GET, POST },
   auth,
@@ -55,5 +56,13 @@ export const {
       return true;
     },
     ...authConfig.callbacks,
+  },
+  // enable session support
+  session: {
+    strategy: "jwt",
+    jwt: true,
+  },
+  jwt: {
+    secret: process.env.AUTH_SECRET,
   },
 });

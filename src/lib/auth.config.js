@@ -6,9 +6,7 @@ export const authConfig = {
   callbacks: {
     async jwt({ user, token }) {
       if (user) {
-        token.id = user.id;
-        token.username = user.username;
-        token.isAdmin = user.isAdmin;
+        return {...token, id: user.id}
       }
       return token;
     },
@@ -28,7 +26,7 @@ export const authConfig = {
       const isOnAdminPage = request.nextUrl?.pathname.startsWith("/admin");
 
       // only admin can reach admin page
-      if (isOnAdminPage && !user?.isAdmin) return false;
+      // if (isOnAdminPage && !user?.isAdmin) return false;
 
       // only Authenticated users can reach blog page
       if (isOnBlogPage && !user) return false;
