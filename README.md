@@ -39,9 +39,16 @@
 
 ## Overview
 
-#### Blogly is a fully functional blogs website. 
-##### Implemented authentication with next-auth (github & credentials) providers, you can register, login, log out and create new blogs. Users can only update or delete existing ones that they have published. It allows users to create, read and share their thoughts with the world. Users can sign up or log in using email and password authentication or their GitHub accounts. Once logged in they are able to view all published blogs
+#### Blogly is a fully functional blogging website.
+##### Authentication is implemented with next-auth (GitHub & credentials) providers. 
+##### Users can sign up or log in using email and password authentication or their GitHub accounts. Once logged in they are able to view all published blogs.
+##### Users can register, log in, log out and create new blogs. Users can only update or delete owned blogs that they have published.
+##### It allows users to create, read and share their thoughts with the world. 
+##### Admin has full control over the website, admin can publish, update or delete any blog. Admin can also delete a user with the associated blogs.
+##### Middleware is implemented to protect routes such as the login page from the authenticated users, the blogs page from the unauthenticated users, also the admin page from unauthenticated or regular users.
 
+
+<br>
 
 ## Stack
 
