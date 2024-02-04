@@ -98,7 +98,7 @@ This project require some prequesites and dependenscies to be installed, you can
 
 ## Preview Link
 
-[![Netlify Status]()]()
+<a href='https://blogly-fayad.vercel.app/' target='_blank'><img src="https://therealsujitk-vercel-badge.vercel.app/?app=blogly-fayad" /></a>
 
 ## Trial Credentials
 user: you can use your github or sign up through the form.
