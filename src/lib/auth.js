@@ -62,7 +62,4 @@ export const {
     strategy: "jwt",
     jwt: true,
   },
-  jwt: {
-    secret: process.env.AUTH_SECRET,
-  },
 });
