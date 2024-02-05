@@ -93,7 +93,8 @@ This project require some prequesites and dependenscies to be installed, you can
 
 
 <img src="./public/preview1.png" alt="image preview 1" data-csiid="30" data-atf="4">
-<img src="./public/preview2.png" alt="image preview 1" data-csiid="30" data-atf="4">
+<img src="./public/preview2.png" alt="image preview 2" data-csiid="30" data-atf="4">
+<img src="./public/preview3.png" alt="image preview 3" data-csiid="30" data-atf="4">
 
 
 ## Preview Link
