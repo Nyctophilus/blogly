@@ -9,7 +9,7 @@ export const metadata = {
 
 const Contact = () => {
   return (
-    <main className="container min-h-[calc(100svh-360px)] px-[10dvw] py-10">
+    <main className="container min-h-[100dvh] px-[10dvw] mt-24 sm:mt-36">
       <h1 className="capitalize font-bold text-3xl lg:text-6xl text-center mb-8">
         contact us
       </h1>

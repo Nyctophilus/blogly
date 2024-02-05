@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 const Register = () => (
-  <main className="flex flex-col gap-4 min-h-[calc(100dvh-80px)]">
+  <main className="min-h-[calc(100dvh-80px)] mt-36">
     <RegisterForm />
     <GitForm />
   </main>

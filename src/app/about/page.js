@@ -21,7 +21,7 @@ const counters = [
 const About = () => {
   return (
     <main
-      className={`grid place-items-center min-h-[calc(100dvh-80px)] after:absolute after:blur-sm after:inset-0 after:bg-center after:bg-no-repeat after:bg-cover after:z-[-1] after:bg-[url(https://images.pexels.com/photos/4577428/pexels-photo-4577428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)]`}
+      className={`grid place-items-center min-h-[100dvh] after:absolute after:blur-sm after:inset-0 after:bg-center after:bg-no-repeat after:bg-cover after:z-[-1] after:bg-[url(https://images.pexels.com/photos/4577428/pexels-photo-4577428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)]`}
     >
       <div className="container relative">
         <motion.h1

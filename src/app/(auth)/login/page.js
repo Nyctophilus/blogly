@@ -9,7 +9,7 @@ export const metadata = {
 
 const Login = () => {
   return (
-    <main className="flex flex-col gap-4 min-h-[calc(100dvh-80px)]">
+    <main className="min-h-[calc(100dvh-80px)] mt-36">
       <CredentailsForm />
       <GitForm />
     </main>

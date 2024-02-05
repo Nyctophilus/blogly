@@ -14,7 +14,7 @@ const Blogs = async () => {
   const blogs = await getData();
 
   return (
-    <main className="container min-w-[70dvw] min-h-[calc(100svh-80px)] py-12">
+    <main className="container min-w-[70dvw] min-h-[100dvh] mb-12 mt-24 sm:mt-36">
       <section className="grid place-items-center grid-cols-[repeat(auto-fit,_minmax(280px,_1fr))] xl:grid-cols-[repeat(auto-fit,_minmax(24rem,_1fr))] gap-6">
         {blogs.map((blog) => (
           <Suspense key={blog._id} fallback={<Loading />}>

@@ -20,18 +20,19 @@ const Admin = async () => {
 
   if (isAdmin)
     return (
-      <main className="container my-20 min-h-[calc(100svh-360px)] grid place-items-center grid-cols-1 lg:grid-cols-2 gap-6">
-        <section className="flex flex-col gap-4 w-full">
-          <BlogsList />
-        </section>
+      <main className="container my-24 sm:mt-36 min-h-[calc(100svh-360px)] grid place-items-center grid-cols-1 lg:grid-cols-2 gap-6">
         <section className="w-full">
           <WriteBlog author={id} />
         </section>
-        <section className="flex flex-col gap-4 w-full">
-          <UsersList />
-        </section>
         <section className="w-full">
           <DeleteBlog author={id} />
+        </section>
+
+        <section className="flex flex-col gap-4 w-full">
+          <BlogsList />
+        </section>
+        <section className="flex flex-col gap-4 w-full">
+          <UsersList />
         </section>
       </main>
     );
