@@ -7,8 +7,10 @@
 
 
 <!-- PROJECT LOGO -->
-<div align="center">
-  <h1>Blogly Website</h1>
+<div>
+  <h1 align="center">Blogly Website</h1>
+  <p>Welcome to the "Blogly" repository! 🚀</p>
+  <img src="./public/preview2.png" alt="image preview 2" data-csiid="30" data-atf="4">
 </div>
 
 <br>
@@ -17,8 +19,8 @@
 <br>
 
 <!-- TABLE OF CONTENTS -->
-  <h2>Table of Contents</h2>
-  <ol>
+## Table of Contents
+  <ul>
     <li><a href="#overview">Overview</a></li>
     <li><a href="#stack">Stack</a></li>
     <li><a href="#getting-started">Getting Started</a></li>
@@ -29,7 +31,7 @@
     <li><a href="#trial-credentials">Trial Credentials</a></li>
     <li><a href="#reports">Reports</a></li>
     <li><a href="#contact">Contact</a></li>
-  </ol>
+  </ul>
 
 <br>
 <br>
@@ -39,13 +41,14 @@
 
 ## Overview
 
-#### Blogly is a fully functional blogging website.
-##### Authentication is implemented with next-auth (GitHub & credentials) providers. 
-##### Users can sign up or log in using email and password authentication or their GitHub accounts. Once logged in they are able to view all published blogs.
-##### Users can register, log in, log out and create new blogs. Users can only update or delete owned blogs that they have published.
-##### It allows users to create, read and share their thoughts with the world. 
-##### Admin has full control over the website, admin can publish, update or delete any blog. Admin can also delete a user with the associated blogs.
-##### Middleware is implemented to protect routes such as the login page from the authenticated users, the blogs page from the unauthenticated users, also the admin page from unauthenticated or regular users.
+- Blogly is a fully functional blogging website.
+- Authentication is implemented with next-auth (GitHub & credentials) providers. 
+- Users can sign up or log in using email and password authentication or their GitHub accounts. Once logged in they are able to view all published blogs.
+- Users can register, log in, log out and create new blogs. Users can only update or delete owned blogs that they have published.
+- It allows users to create, read and share their thoughts with the world. 
+- Admin has full control over the website, admin can publish, update or delete any blog. Admin can also delete a user with the associated blogs.
+- Middleware is implemented to protect routes such as the login page from the authenticated users, the blogs page from the unauthenticated users, also the admin page from unauthenticated or regular users.
+- Forms validations both Server & Client sides. Showcasing responsive informative feedback to user's actions in realtime.
 
 
 <br>
@@ -89,11 +92,7 @@ This project require some prequesites and dependenscies to be installed, you can
 
 
 ### Preview Image
-
-
-
 <img src="./public/preview1.png" alt="image preview 1" data-csiid="30" data-atf="4">
-<img src="./public/preview2.png" alt="image preview 2" data-csiid="30" data-atf="4">
 <img src="./public/preview3.png" alt="image preview 3" data-csiid="30" data-atf="4">
 
 
@@ -102,12 +101,13 @@ This project require some prequesites and dependenscies to be installed, you can
 <a href='https://blogly-fayad.vercel.app/' target='_blank'><img src="https://therealsujitk-vercel-badge.vercel.app/?app=blogly-fayad" /></a>
 
 ## Trial Credentials
-user: you can use your github or sign up through the form.
+- user: you can use your github or sign up through the form.
+- admin: you can send me an email  for admin credentials <a href='#contact'>contact me</a>.
 
-admin: you can send me an email  for admin credentials <a href='#contact'>contact me</a>.
+<br>
+<br>
 
-
-#### Reports
+## Reports
 
 <details>
     <summary>Website Stats Desktop Report</summary>
@@ -122,10 +122,7 @@ admin: you can send me an email  for admin credentials <a href='#contact'>contac
 <br>
 <br>
 
-#### Contact
-
-<br>
-
+## Contact
 If there is any issue, please feel free to contact me.
 
 📫 Please hit me up at ✉️[mohammed.yuossry@gmail.com](mailto:mohammed.yuossry@gmail.com) if you have any feedback or improvements.<br><br><br>
