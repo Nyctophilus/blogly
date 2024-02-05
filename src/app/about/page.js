@@ -55,7 +55,7 @@ const About = () => {
               href={"https://github.com/Nyctophilus"}
               className="capitalize font-black mb-2 w-fit"
             >
-              githug
+              github
             </Link>
             <Link
               href={"https://www.instagram.com/muhammed_yuossry/"}
@@ -76,7 +76,7 @@ const About = () => {
               twitter
             </Link>
             <Link
-              href={"https://www.facebook.com/LocaMood"}
+              href={"https://www.facebook.com"}
               className="capitalize font-black w-fit"
             >
               facebook
