@@ -19,7 +19,7 @@ const NavbarContainer = ({ session }) => {
 
   return (
     <Navbar className="max-w-none px-4 py-2 rounded-none top-0 z-50 fixed">
-      <div className="flex items-center justify-between text-blue-gray-900">
+      <div className="container flex items-center justify-between text-blue-gray-900">
         <Link href="/">
           <Image
             src={"https://i.imgur.com/BblNWo3.png"}
