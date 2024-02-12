@@ -53,7 +53,7 @@ const BlogCard = ({ blog: { title, body, img, author, slug, createdAt } }) => (
       </Suspense>
       {createdAt && (
         <Typography className="font-normal capitalize">
-          {Date(createdAt).split(" ").slice(1, 4).join(" ")}
+          {new Date(createdAt).toString().split(" ").slice(1, 4).join(" ")}
         </Typography>
       )}
       <Link href={`/blogs/${slug}`} className="mt-2 inline-block basis-full">

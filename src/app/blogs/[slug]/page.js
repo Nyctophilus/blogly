@@ -68,7 +68,11 @@ const Blog = async ({ params: { slug } }) => {
                 color="gray"
                 className="capitalize self-end"
               >
-                {Date(createdAt).split(" ").slice(1, 4).join(" ")}
+                {new Date(createdAt)
+                  .toString()
+                  .split(" ")
+                  .slice(1, 4)
+                  .join(" ")}
               </Typography>
             )}
           </figcaption>
