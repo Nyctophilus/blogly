@@ -108,31 +108,34 @@ export const updateBlog = async (title, updates, author) => {
   if (!Object.keys(updates).length)
     return { error: "You have to specify atleast one edit to your blog." };
 
-  updates.slug = updates?.title.trim().replaceAll(" ", "-");
+    if (updates.title) updates.slug = updates.title.trim().replaceAll(" ", "-");
 
-  try {
-    connectToDB();
+    try {
+      connectToDB();
 
-    const blog = await Blog.findOne({ title });
-    if (blog) {
-      const isAuthor = blog.author.toString() === author;
-      if (!isAuthor) return { error: "You aren't the author of this blog." };
+      const blog = await Blog.findOne({ title });
+      if (blog) {
+        const isAuthor = blog.author.toString() === author;
+        if (!isAuthor) return { error: "You aren't the author of this blog." };
 
-      const res = await Blog.updateOne({ title }, updates);
+        const res = await Blog.updateOne({ title }, updates);
 
-      if (res.modifiedCount) {
-        revalidatePath(`/blogs/${updates.slug}`, "page");
-        revalidatePath("/blogs");
-        return { success: "the blog has been updated successfully." };
+        if (res.modifiedCount) {
+          revalidatePath(
+            `/blogs/${updates.slug || title.trim().replaceAll(" ", "-")}`,
+            "page"
+          );
+          revalidatePath("/blogs");
+          return { success: "the blog has been updated successfully." };
+        }
       }
+      return {
+        error: "the blog is not found... Please, try to check the title again.",
+      };
+    } catch (error) {
+      console.log(error);
+      return { error: "failed to update the blog." };
     }
-    return {
-      error: "the blog is not found... Please, try to check the title again.",
-    };
-  } catch (error) {
-    console.log(error);
-    return { error: "failed to update the blog." };
-  }
 };
 
 export const handleGitLogin = async () => {
