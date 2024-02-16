@@ -5,7 +5,7 @@ import { Card, Button, Typography, Input } from "@/lib/export-mat-tailwind";
 import { useState } from "react";
 import Tostify from "../tostify/tostify";
 
-const DeleteBlog = ({ author }) => {
+const DeleteBlog = ({ author, isAdmin }) => {
   const [title, setTitle] = useState({
     value: "",
     msg: "",
@@ -22,6 +22,7 @@ const DeleteBlog = ({ author }) => {
       const res = await deleteBlog({
         title: title.value.trim().toLowerCase(),
         author,
+        isAdmin,
       });
       setTitle({ value: "", msg: res });
     }

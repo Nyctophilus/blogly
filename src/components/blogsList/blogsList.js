@@ -43,7 +43,7 @@ const BlogsList = async () => {
                   action={async (_) => {
                     "use server";
 
-                    await deleteBlog({ title: blog.title }, true);
+                    await deleteBlog({ title: blog.title, isAdmin: true });
                   }}
                 >
                   <Button size="md" color="red" type="submit">

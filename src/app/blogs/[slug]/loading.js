@@ -1,5 +1,5 @@
 const Loading = () => (
-  <div className="animate-pulse overflow-hidden relative bg-clip-border rounded-xl bg-white shadow-md w-full h-full p-6">
+  <div className="container animate-pulse overflow-hidden relative bg-clip-border rounded-xl bg-white shadow-md w-[80dvw] h-[80dvh] my-24 sm:my-36 p-6">
     <div className="flex flex-wrap justify-between h-full">
       <div className="w-full lg:w-[30%] h-[300px] lg:h-2/3 bg-gray-500/50 rounded-xl"></div>
       <div className="flex flex-col gap-8 w-full lg:w-[63%]">

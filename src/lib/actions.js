@@ -55,7 +55,7 @@ export const createBlog = async (blog) => {
   }
 };
 
-export const deleteBlog = async ({ title, author }, isAdmin) => {
+export const deleteBlog = async ({ title, author, isAdmin }) => {
   const slug = title.trim().replaceAll(" ", "-");
   console.log(slug);
 
@@ -104,7 +104,7 @@ export const deleteUser = async (author) => {
   }
 };
 
-export const updateBlog = async (title, updates, author) => {
+export const updateBlog = async (title, updates, author, isAdmin) => {
   if (!Object.keys(updates).length)
     return { error: "You have to specify atleast one edit to your blog." };
 
@@ -115,9 +115,12 @@ export const updateBlog = async (title, updates, author) => {
 
       const blog = await Blog.findOne({ title });
       if (blog) {
-        const isAuthor = blog.author.toString() === author;
-        if (!isAuthor) return { error: "You aren't the author of this blog." };
 
+        if (!isAdmin) {
+          const isAuthor = blog.author.toString() === author;
+          if (!isAuthor) return { error: "You aren't the author of this blog." };
+        }
+        
         const res = await Blog.updateOne({ title }, updates);
 
         if (res.modifiedCount) {

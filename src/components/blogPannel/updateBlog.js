@@ -18,7 +18,7 @@ const defalutForm = {
   img: { url: "", valid: false },
 };
 
-const UpdateBlog = ({ author }) => {
+const UpdateBlog = ({ author, isAdmin }) => {
   const [form, setForm] = useState(defalutForm);
   const [valid, setValid] = useState(false);
   const [msg, setMsg] = useState("");
@@ -63,7 +63,12 @@ const UpdateBlog = ({ author }) => {
       }
 
       // check update and delete and make the admin page
-      const res = await updateBlog(form.catcher.toLowerCase(), updates, author);
+      const res = await updateBlog(
+        form.catcher.toLowerCase(),
+        updates,
+        author,
+        isAdmin
+      );
       setForm(defalutForm);
       setMsg(res);
     }
@@ -97,11 +102,11 @@ const UpdateBlog = ({ author }) => {
       >
         <div className="mb-1 flex flex-col gap-6">
           <Typography
-            variant="h5"
+            variant="h6"
             color="blue-gray"
-            className="-mb-3 capitalize"
+            className="-mb-3 [&:first-letter]:capitalize"
           >
-            blog title that you want to modify
+            blog title that you want to edit
           </Typography>
           <Input
             size="lg"

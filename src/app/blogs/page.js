@@ -1,8 +1,8 @@
 import BlogCard from "@/components/blogCard/blogCard";
 import { getData } from "@/lib/actions";
 import { Suspense } from "react";
-import Loading from "./loading";
 import BlogPannel from "@/components/blogPannel/blogPannel";
+import Loading from "./loading";
 
 export const metadata = {
   title: "Blogs",
@@ -17,7 +17,7 @@ const Blogs = async () => {
     <main className="container min-w-[70dvw] min-h-[100dvh] mb-12 mt-24 sm:mt-36">
       <section className="grid place-items-center grid-cols-[repeat(auto-fit,_minmax(280px,_1fr))] xl:grid-cols-[repeat(auto-fit,_minmax(24rem,_1fr))] gap-6">
         {blogs.map((blog) => (
-          <Suspense key={blog._id} fallback={<Loading />}>
+          <Suspense key={blog._id}>
             <BlogCard blog={blog} />
           </Suspense>
         ))}

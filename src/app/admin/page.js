@@ -1,4 +1,4 @@
-import DeleteBlog from "@/components/blogPannel/deleteBlog";
+import UpdateBlog from "@/components/blogPannel/updateBlog";
 import WriteBlog from "@/components/blogPannel/writeBlog";
 import BlogsList from "@/components/blogsList/blogsList";
 import UsersList from "@/components/usersList/usersList";
@@ -12,28 +12,33 @@ export const metadata = {
 };
 
 const Admin = async () => {
-  const {
-    user: { id, isAdmin },
-  } = await getSession();
+  const session = await getSession();
 
-  !isAdmin && redirect("/");
+  if (!session?.user?.isAdmin) redirect("/");
 
-  if (isAdmin)
+  if (session?.user)
     return (
-      <main className="container my-24 sm:mt-36 min-h-[calc(100svh-360px)] grid place-items-center grid-cols-1 lg:grid-cols-2 gap-6">
-        <section className="w-full">
-          <WriteBlog author={id} />
-        </section>
-        <section className="w-full">
-          <DeleteBlog author={id} />
-        </section>
+      <main className="container my-24 sm:mt-36 min-h-[calc(100svh-360px)]">
+        <h1 className="text-3xl md:text-5xl font-bold mb-12 text-center">
+          Admin DashBoard
+        </h1>
+        <div className="grid justify-center grid-cols-1 lg:grid-cols-2 gap-6">
+          <section className="w-full">
+            <WriteBlog author={session.user.id} />
+          </section>
+          <section className="w-full">
+            <UpdateBlog author={session.user.id} isAdmin />
+          </section>
 
-        <section className="flex flex-col gap-4 w-full">
-          <BlogsList />
-        </section>
-        <section className="flex flex-col gap-4 w-full">
-          <UsersList />
-        </section>
+          <section className="flex flex-col gap-4 w-full">
+            <h2 className="text-2xl lg:text-3xl font-bold">Blogs List</h2>
+            <BlogsList />
+          </section>
+          <section className="flex flex-col gap-4 w-full">
+            <h2 className="text-2xl lg:text-3xl font-bold">Users List</h2>
+            <UsersList />
+          </section>
+        </div>
       </main>
     );
 };

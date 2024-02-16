@@ -1,4 +1,3 @@
-import Loading from "@/app/loading";
 import { getBlogs } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,9 +36,11 @@ const InfScoller = async () => {
 
   return (
     <div className="py-6 flex gap-5 w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_50px,_black_calc(100%-120px),transparent_100%)] md:[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-      {Array(4)
-        .fill(blog)
-        .map((el) => el)}
+      <Suspense>
+        {Array(4)
+          .fill(blog)
+          .map((el) => el)}
+      </Suspense>
     </div>
   );
 };
